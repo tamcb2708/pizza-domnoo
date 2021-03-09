@@ -71,9 +71,22 @@ class CartController extends Controller
                     'product_price' => $data['cart_product_price'],
             );
             Session::put('cart',$cart);
+            }elseif($is_avaiable !=0){
+                $cart[] = array(
+                    'session_id' => $session_id,
+                    'product_name' => $data['cart_product_name'],
+                    'product_id' => $data['cart_product_id'],
+                    'product_img' => $data['cart_product_img'],
+                    'product_qty' => $data['cart_product_qty'],
+                    'product_size' => $data['cart_product_size'],
+                    'product_base' => $data['cart_product_base'],
+                    'product_extra' => $data['cart_product_extra'], 
+                    'product_rim' => $data['cart_product_rim'],
+                    'product_price' => $data['cart_product_price'],
+            );
+            Session::put('cart',$cart);
             }
-        }
-        else{
+        }else{
             $cart[] = array(
                 'session_id' => $session_id,
                 'product_name' => $data['cart_product_name'],

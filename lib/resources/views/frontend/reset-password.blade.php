@@ -1,5 +1,5 @@
 @extends('frontend-view')
-@section('title','Đăng Nhập')
+@section('title','Quên Mật Khẩu')
 @section('content')
 	
 
@@ -33,7 +33,7 @@
 						<div class="block-stl12">
 							<div class="title">
 								<p class="top-h">Một Sự Thật Thú Vị</p>
-								<h2>Bạn Có Tài Khoản</h2>
+								<h2>Bạn Có Tài Khoản Nhưng Lại Quên Mật Khẩu</h2>
 							</div>
 							@if(session()->has('message'))
 							<div class="alert alert-success">
@@ -51,28 +51,18 @@
 						</ul>
 							
 						@endforeach
-							<form action="{{asset('/nguoi-dung/check-dang-nhap.html')}}" method="POST">
+							<form action="{{asset('/nguoi-dung/check-mat-khau.html')}}" method="POST">
                                 @csrf
                                 <div style="height: 100px; width:100%" class="col-lg-12 col-md-12">
-                                    <h2 style="background-color: antiquewhite">Email</h2>
+                                    <h2 style="background-color: antiquewhite">Điền Địa Chỉ Email</h2>
                                     <div style="height: 100px" class="form-group">
-                                        <input style="height: 50px; width:100%" type="email" value="{{old('email')}}" name="email" placeholder="Email" class="form-control">
+                                        <input style="height: 50px; width:100%" type="email" value="{{old('email')}}" name="email" placeholder="Diền Email" class="form-control">
                                     </div>	
-                                </div>
-								
-                                <div style="height: 100px" class="col-lg-12 col-md-12">
-                                    <h2 style="background-color: antiquewhite">Mật Khẩu</h2>
-                                    <div style="height: 100px" class="form-group">
-                                        <input style="height: 50px; width:100%" type="password" name="password" placeholder="Mật Khẩu" class="form-control">
-                                    </div>
                                 </div>
                                 <hr>
                                 <div class="col-lg-12 col-md-12 text-center">
-                                    <input type="submit" id="btn" class="btn btn3" value="Đăng Nhập" style="color: aliceblue">
+                                    <input type="submit" id="btn" class="btn btn3" value="Tìm" style="color: aliceblue">
                                 </div>
-                                <a style="background-color: darkgrey" class="btn btn3" href="{{asset('nguoi-dung/mat-khau.html')}}">Quên Mật Khẩu</a>
-                                <hr>
-                                <a style="background-color: darkgrey" class="btn btn3" href="{{asset('nguoi-dung/dang-ky.html')}}">Bạn Chưa Có Tài Khoản ?</a>
                             </form>
 						</div>
 					</div>

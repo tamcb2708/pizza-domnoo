@@ -36,17 +36,19 @@
 					</ul>
 
 					<div class="filter-tabnav">
+						<form action="">
+							@csrf
 						<div class="container bg_fff">
-							{{-- <p class="showing-result">Showing 1 - 20 of 245 Products</p>
+							<p class="showing-result">Showing 1 - 20 of 245 Products</p>
 							<span class="sort-by"> Short by :</span>
 							<ul class="button-group js-radio-button-group" data-filter-group="item_cat_inner">
 						      <li class="sort-btn" data-sort="default:asc"><span>Newest First</span></li>
 						      <li class="sort-btn" data-sort="popularity:asc"><span>Popularity</span></li>
 						      <li class="sort-btn" data-sort="price:asc"><span>Low to Heigh</span></li>
 						      <li class="sort-btn" data-sort="price:desc"><span>Heigh to Low</span></li>
-						    </ul> --}}
+						    </ul>
 
-						    {{-- <ul class="filter-check">
+						    <ul class="filter-check">
 						    	<li>
 						    		<div class="form-check">
 										<label>
@@ -68,7 +70,7 @@
 										</label>
 									</div>
 								</li>
-						    </ul> --}}
+						    </ul>
 
 						    <div class="list-grid-btns">
 						    	<button class="btn grid-btn"><i class="flaticon-menu"></i></button>
@@ -76,6 +78,7 @@
 						    </div>
 
 						</div>
+					    </form>
 					</div>
 				</div>
 			</div>

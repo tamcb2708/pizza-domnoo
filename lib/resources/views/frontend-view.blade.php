@@ -41,7 +41,7 @@
 								<p>Việt Nam</p>
 								<span>+0355 978 258</span>
 							</div>
-							<a href="{{asset('/')}}" class="nav-opener"><i class="fa fa-bars"></i></a>
+							<a  class="nav-opener"><i class="fa fa-bars"></i></a>
 							<nav class="nav">
 								<ul class="list-unstyled">
 									<li class="drop active"><a href="{{asset('/')}}">Trang Chủ</a>
@@ -236,6 +236,17 @@
 						alert("Lỗi Đánh Giá");
 					}
 				}
+			});
+		});
+	</script>
+	<script>
+		$(document).ready(function(){
+			$('#sort').on('change',function(){
+				var url = $(this).val();
+				if(url){
+					window.location = url;
+				}
+				return false;
 			});
 		});
 	</script>

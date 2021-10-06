@@ -51,12 +51,34 @@ class FrontendController extends Controller
 
         return view('frontend.contact');
     }
-    public function menu(){
+    public function menu(Request $request){
         $brand=DB::table('pz-brand')->where('bra_status',0)->get();
         $category=DB::table('pz-category')->orderBy('cate_id','DESC')->get();
-        $product=DB::table('pz-product')->orderBy('pr_id','DESC')->paginate(8);
+        // $product=DB::table('pz-product')->orderBy('pr_id','DESC')->paginate(8);
         $data['items']=DB::table('pz-product')->join('pz-category','pz-product.pr_cate','=','pz-category.cate_id')->orderBy('pr_id','desc')->paginate(8);
         $data['ite']=Product::where('pr_status',0)->paginate(8);
+
+        if(isset($_GET['sort_by'])){
+            $sort_by=$_GET['sort_by'];
+            if($sort_by=='giam_dan'){
+                $product=Product::where('pr_status',0)->join('pz-category','pz-product.pr_cate','=','pz-category.cate_id')->orderBy('pr_price','DESC')->paginate(8)->appends(request()->query());
+            }elseif($sort_by=='tang_dan'){
+                $product=Product::where('pr_status',0)->join('pz-category','pz-product.pr_cate','=','pz-category.cate_id')->orderBy('pr_price','ASC')->paginate(8)->appends(request()->query());
+            }elseif($sort_by=='kytu_az'){
+                $product=Product::where('pr_status',0)->join('pz-category','pz-product.pr_cate','=','pz-category.cate_id')->orderBy('pr_name','DESC')->paginate(8)->appends(request()->query());
+            }elseif($sort_by=='kytu_za'){
+                $product=Product::where('pr_status',0)->join('pz-category','pz-product.pr_cate','=','pz-category.cate_id')->orderBy('pr_name','ASC')->paginate(8)->appends(request()->query());
+            }elseif($sort_by=='cu_nhat'){
+                $product=Product::where('pr_status',0)->join('pz-category','pz-product.pr_cate','=','pz-category.cate_id')->orderBy('updated_at','DESC')->paginate(8)->appends(request()->query());
+            }elseif($sort_by=='moi_nhat'){
+                $product=Product::where('pr_status',0)->join('pz-category','pz-product.pr_cate','=','pz-category.cate_id')->orderBy('updated_at','ASC')->paginate(8)->appends(request()->query());
+            }elseif($sort_by=='none'){
+                $product=DB::table('pz-product')->join('pz-category','pz-product.pr_cate','=','pz-category.cate_id')->where('pr_status',0)->orderBy('pr_id','DESC')->paginate(8);
+            }
+        }else{
+            $product=DB::table('pz-product')->join('pz-category','pz-product.pr_cate','=','pz-category.cate_id')->where('pr_status',0)->orderBy('pr_id','DESC')->paginate(8);
+        }
+
         return view('frontend.menu',$data)->with('brand',$brand)->with('category',$category)->with('product',$product);
     }
     public function gui_lien_he(Request $request){ 

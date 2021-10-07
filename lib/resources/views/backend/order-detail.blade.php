@@ -9,6 +9,7 @@
                         <div class="panel-heading">
                             <h2>Chi Tiết Đơn Hàng</h2>
                         </div>
+                        <hr>
                         <div class="row w3-res-tb">
                             <h3> 
                                 <?php
@@ -38,10 +39,11 @@
                                      Session::put('message',null);
                                  }       
                             ?>
+                             <h4>Các Đơn Hàng Khác</h4>
                             <table class="table table-striped b-t b-light">
                                 <thead>
                                     <tr>
-  <th>thứ tự</th>
+                                    <th>thứ tự</th>
                                     <th>mã đơn hàng</th>
                                     <th>tình trạng đơn hàng</th>
                                     <th>thời gian</th>
@@ -80,6 +82,7 @@
                                   @endforeach
                                 </tbody>  
                             </table>
+                            {{$ord->links()}}
                             <hr>
                             <div  >
                                 <h4>Thông Tin Tài Khoản Khách</h4>
@@ -125,7 +128,7 @@
                                             <td>{{$shipping->ship_phone}}</td>
                                             <td>{{$shipping->ship_note}}</td>
                                             <td>
-                                                @if($shipping->ship_paymment==0)
+                                                @if($shipping->ship_paymment==1)
                                             Nhận Hàng Rồi Thanh Toán
                                              @else
                                             Thanh Toán Chuyển Khoản
@@ -139,12 +142,12 @@
                             <hr>
                             <div  >
                                 <h4>Danh Sách Sản Phẩm Khách Đặt</h4>
-                                <table class="table table-bordered" style="padding: 300px width: 50%; height: 100%;">
+                                <table class="table table-bordered"  style="padding: 300px width: 50%; height: 100%;">
                                     <thead>
                                          <tr class="">
                                         <th>Số Thứ Tự</th>
                                         <th>Mã Sản Phẩm</th>
-                                        <th>Mã giảm giá</th>
+                                        {{-- <th>Mã giảm giá</th> --}}
                                         <th>Ảnh Sản Phẩm</th>
                                         <th>Tên Sản Phẩm</th>
                                         <th>Cỡ Bánh</th>
@@ -162,7 +165,7 @@
                                             $total = 0;
                                             
                                         @endphp
-                                    @foreach($order_details as $key =>$order)
+                                    @foreach($order_details_product as $key =>$order)
                                         @php
                                             $i++ ;
                                             $tongtien=$order->product_price * $order->product_quantity;
@@ -172,18 +175,18 @@
                                         <tr class="color_quanity_{{$order->product_id}}">
                                             <td>{{$i}}</td>
                                             <td style="color: red">{{$order->product_id}}</td>
-                                            <td>
+                                            {{-- <td>
                                             @if($order->product_coupon !='khong co coupon')
                                                 {{$order->product_coupon}}
                                             @else
                                                 Không có mã giảm giá
-                                            @endif
+                                            @endif --}}
                                             <input type="hidden" name="order_id" class="order_id" value="{{$order->product_id}}">
                                             <input type="hidden" name="order_quantitys" class="order_quantity_storage_{{$order->product_id}}" value="{{$order->product->prod_quantity}}">
                                             <input type="hidden" name="order_code" class="order_code" value="{{$order->order_code}}">
                                             </td>
                                             <td><img width="100px;" height="100px;" src="{{asset('public/Backend/SanPham/'.$order->product->pr_img)}}" alt=""></td>
-                                            <td>{{$order->product_name}}</td>
+                                            <td style="color: rgb(94, 19, 233)">{{$order->product_name}}</td>
                                                      <td class="product_color">
                                                      @if($order->product_size==1)
                                                          Cỡ 12 inch
@@ -216,6 +219,8 @@
                                             <td>
                                                 @if($order->product_rim)
                                                    Phô Mai
+                                                @elseif($order->product_rim)
+                                                   Sô Cô La
                                                 @else
                                                 @endif
                                             </td>
@@ -231,7 +236,7 @@
                                         </tr>
                                     @endforeach
                                     <tr>
-                                        <td colspan="2">
+                                        <td colspan="4">
 
                                             @php
                                                 $total_coupon = 0;
@@ -240,7 +245,7 @@
                                                 @php
                                                     $total_after_coupon = ($total*$coupon_number)/100;
                                                     echo 'Tổng giảm:'.number_format($total_after_coupon,0,',','.').'VND'.'</br>';
-                                                    $total_coupon=$total + $total_after_coupon + $order->product_freeship;
+                                                    $total_coupon=$total - $total_after_coupon + $order->product_freeship;
                                                 @endphp
                                             @else
                                                 @php
@@ -254,7 +259,7 @@
                                         </td>
                                     </tr>
                                     <tr >
-                                        <td colspan="10">
+                                        <td colspan="2">
                                     @foreach( $orders as $or )
 
                                     @if($or->order_status==1)
@@ -272,6 +277,8 @@
                                             <option id="{{$or->order_id}}" value="1">Khôi Phục</option>
                                             <option id="{{$or->order_id}}" selected value="2">Đã Xử Lý</option>
                                         </select>
+                                        <hr>
+                                        <a target="_blank" class="btn btn-danger" href="{{asset('admin/order/print-order/'.$order->order_code)}}">In Đơn Hàng</a>
                                     </form>
                                     @endif
                                     @endforeach
@@ -279,7 +286,6 @@
                                     </tr>
                                     </tbody>                                     
                                 </table>
-                                <!-- <a href="{{asset('admin/print-order'.$order->order_code)}}">In Don Hang</a> -->
                             </div>
                         </div>
                     </div>

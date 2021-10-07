@@ -252,4 +252,31 @@ class CustomerController extends Controller
         Session::put('message','Xóa Đơn Hàng Thành Công');
         return Redirect::to('nguoi-dung/lich-su.html');   
     }
+    public function mat_khau(Request $request){
+        $brand=DB::table('pz-brand')->where('bra_status',0)->get(); 
+        return view('frontend.reset-password')->with('brand',$brand);
+    }
+    public function check_mat_khau(Request $request){
+        $email=$request->email;
+        $brand=DB::table('pz-brand')->where('bra_status',0)->get(); 
+        $result=DB::table('pz-customer')->where('cus_email',$email)->first();
+        if($result){
+            return view('frontend.password')->with('email',$email)->with('brand',$brand);
+        }else{
+            return Redirect::to('nguoi-dung/mat-khau.html')->with('error','email của bạn nhập sai hoặc không tồn tại mời nhập lại !!!');
+        }
+    }
+    public function password(Request $request){
+        $email=$request->email;
+        $passwords=$request->passwords;
+        $password1=$request->password1;
+        if($passwords == $password1){
+            $data=array(); 
+            $data['cus_password']=md5($request->passwords);
+            DB::table('pz-customer')->where('cus_email',$email)->update($data);
+            return Redirect::to('nguoi-dung/dang-nhap.html');
+        }else{
+            return Redirect::to('nguoi-dung/mat-khau.html')->with('error','2 Mật Khẩu Không Trùng Khớp Mời Nhập Lại!!!');
+        }
+    }
 }

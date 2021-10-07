@@ -9,4 +9,8 @@ class Category extends Model
     protected $table='pz-category';
     protected $primaryKey='cate_id';
     protected $guarded=[];
+
+    public function product(){
+        return $this->hasMany('App\Model\Product');
+    }
 }

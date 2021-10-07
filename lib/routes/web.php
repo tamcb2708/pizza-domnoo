@@ -60,6 +60,9 @@ Route::group(['namespace'=>'Frontend'],function(){
         Route::post('/luu.html','CustomerController@luu');
         Route::get('chi-tiet-lich-su/{order_code}.html','CustomerController@chi_tiet');
         Route::get('/order/delete/{order_code}','CustomerController@delete');
+        Route::get('/mat-khau.html','CustomerController@mat_khau');
+        Route::post('/check-mat-khau.html','CustomerController@check_mat_khau');
+        Route::post('/luu-mat-khau.html','CustomerController@password');
     });
 });
 
@@ -69,7 +72,6 @@ Route::group(['namespace'=>'Backend'],function(){
         Route::get('/','LoginController@getlogin');
         Route::post('/check-login','LoginController@postlogin');
         Route::get('/logout','LoginController@logout');
-
     //Index
         Route::get('comment','HomeController@Comment');
         Route::get('follow','HomeController@Follow');
@@ -203,6 +205,7 @@ Route::group(['namespace'=>'Backend'],function(){
             Route::post('/update-order-qty','OrderController@update_order_qty');
             Route::post('/update-quantity','OrderController@update_quantity');
             Route::get('/delete/{order_code}','OrderController@delete_order');
+            Route::get('/print-order/{checkout_code}','OrderController@print_order');
         });
     //Brand
         Route::group(['prefix'=>'brand'],function(){

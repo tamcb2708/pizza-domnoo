@@ -30,4 +30,17 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'facebook' => [
+        'client_id' => '1555549144784394',
+        'client_secret' => 'fc578eb47c1fb9fdc473e2509479f593',
+        'redirect' => 'https://domnoo-nt.xyz/nguoi-dung/callback.html'
+    ],
+ 
+    'google' => [
+        'client_id' => '705918145980-ndnb0a2v940bbqhn2a9l0gboivv50c9p.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'https://domnoo-nt.xyz/nguoi-dung/google-callback.html'
+    ],
+
+    
 ];

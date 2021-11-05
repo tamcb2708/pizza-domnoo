@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\DB;
 use App\Model\Product;
+use Illuminate\Support\Carbon;
 use App\Model\Coupon;
 use PDO;
 
@@ -37,12 +38,18 @@ class CartController extends Controller
         //     $rim_next=0;
         //     $ri=0;
         // }
+                //seo
+                $meta_description = "tamccctamccctamccctamccctamccctamccctamccctamccctamccctamccc";
+                $meta_keywords = "tamcc,tamccc,tamcc3,tamc2";
+                $meta_title = "tamccctamccctamccc";
+                $url_meta = $request->url();
+             //seo
         $extra=DB::table('pz-extra')->get();
         $brand=DB::table('pz-brand')->where('bra_status',0)->get();
         $url_can=$request->url();
         $cate_product=DB::table('pz-category')->orderby('cate_id','desc')->get();
         // $brand_product=DB::table('vp-brand')->where('bra_status',0)->orderby('bra_id','desc')->get();
-        return view('frontend.cart')->with('brand',$brand)->with('extra',$extra);
+        return view('frontend.cart')->with('brand',$brand)->with('extra',$extra)->with('meta_description',$meta_description)->with('meta_keywords',$meta_keywords)->with('url_meta',$url_meta)->with('meta_title',$meta_title);
     }
     public function add_cart(Request $request){
         $data=$request->all(); 
@@ -154,7 +161,22 @@ class CartController extends Controller
     }
     public function check_coupon(Request $request){
         $data=$request->all();
-        $coupon=Coupon::where('con_code',$data['coupon'])->first();
+        $today=Carbon::now('Asia/Ho_Chi_Minh')->format('d/m/Y');
+        if(Session::get('cus_id')){
+            $coupon=Coupon::where('con_code',$data['coupon'])->where('con_status',1)->where('con_date_end','>=',$today)->where('con_user','LIKE','%'.Session::get('cus_id').'%')->first();
+            if($coupon){
+                return redirect()->back()->with('error','Mã Giảm Giá Không Đúng Hoặc Đã Hết Hạn');
+            }else{
+                return $this->check_error_coupon($request);
+            }
+        }else{
+            return $this->check_error_coupon($request);
+        }
+    }
+    public function check_error_coupon(Request $request){
+        $data=$request->all();
+        $today=Carbon::now('Asia/Ho_Chi_Minh')->format('d/m/Y');
+        $coupon=Coupon::where('con_code',$data['coupon'])->where('con_status',1)->where('con_date_end','>=',$today)->first();
         if($coupon){
             $cout_coupon=$coupon->count();
             if($cout_coupon>0){
@@ -185,7 +207,7 @@ class CartController extends Controller
                 return redirect()->back()->with('message','Thêm Mã Giảm Giá Thành Công');
             }
         }else{
-            return redirect()->back()->with('error','Mã Giảm Giá Không Đúng');
+            return redirect()->back()->with('error','Mã Giảm Giá Không Đúng Hoặc Đã Hết Hạn');
         }
     }
     public function delete_coupon(){

@@ -25,10 +25,20 @@ class FeedBackController extends Controller
     {
     	$data=array();
     	$data['fe_name']=$request->name;
-        $data['fe_img']=$request->img;
     	$data['fe_status']=$request->status;
         $data['fe_desc']=$request->desc;
-
+        $get_image = $request->file('img');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,999).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/upload/image',$new_image);
+            $data['fe_img'] = $new_image;
+        	DB::table('pz-feedback')->insert($data);
+    	    Session::put('message','Thêm Phản Hồi Khách Hàng Thành công');
+    	    return Redirect::to('admin/feedback/add-feedback');
+        }
+        $data['fe_img']='';
     	DB::table('pz-feedback')->insert($data);
     	Session::put('message','Thêm Phản Hồi Khách Hàng Thành công');
     	return Redirect::to('admin/feedback/add-feedback');
@@ -56,9 +66,20 @@ class FeedBackController extends Controller
     {
         $data=array();
         $data['fe_name']=$request->name;
-        $data['fe_img']=$request->img;
     	$data['fe_status']=$request->status;
         $data['fe_desc']=$request->desc;
+        $get_image = $request->file('img');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,999).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/upload/image',$new_image);
+            $data['fe_img'] = $new_image;
+            DB::table('pz-feedback')->where('fe_id',$fe_id)->update($data);
+            Session::put('message','Sửa Thông Tin Thành Công ');
+            return Redirect::to('admin/feedback');
+        }
+        $data['fe_img']='';
         DB::table('pz-feedback')->where('fe_id',$fe_id)->update($data);
         Session::put('message','Sửa Thông Tin Thành Công ');
         return Redirect::to('admin/feedback');

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <base href="{{asset('public/backend')}}/">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
     <title>@yield('tit')</title>
 
     <!-- Custom fonts for this template-->
+    <link rel="icon" href="{{asset('public/frontend/images/fav2.ico')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('public/frontend/images/fav2.ico')}}" type="image/x-icon">
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="Domnoo/domnoo.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -37,9 +37,9 @@
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{asset('admin/home')}}">
                 <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
+                    <img src="{{ asset('public/frontend/images/logo.png') }}" width="90px" height="60px" alt="logo" class="img-responsive-domnoo">
                 </div>
-                <div class="sidebar-brand-text mx-3">Domnoo Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Admin <sup>NT</sup></div>
             </a>
 
             <!-- Divider -->
@@ -87,6 +87,7 @@
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/delivery')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -97,21 +98,29 @@
                     <i class="fa fa-book fa-fw"></i>
                     <span>Mã Giảm Giá</span></a>
             </li>
+
+            <hr class="sidebar-divider d-none d-md-block">
             <li class="nav-item">
-                <a class="nav-link" href="{{asset('admin/contact')}}">
+                <a class="nav-link" href="{{asset('admin/brand')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Liên Hệ Của Khách</span></a>
+                    <span>Thương Hiệu</span></a>
             </li>
+
+            <hr class="sidebar-divider d-none d-md-block">
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/slide')}}">
                     <i class="fa fa-book fa-fw"></i>
                     <span>Quản Lý Slide</span></a>
             </li>
+
+            <hr class="sidebar-divider d-none d-md-block">
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/feedback')}}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>FeedBack Của Khách</span></a>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
+
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/blog')}}">
                     <i class="fa fa-book fa-fw"></i>
@@ -123,12 +132,14 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>Bài Viết Về Lịch Sử</span></a>
             </li>
+            <hr class="sidebar-divider d-none d-md-block">
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/agent')}}">
                     <i class="fa fa-book fa-fw"></i>
                     <span>Nhân Viên</span></a>
             </li>
+             <!-- Nav Item - Tables -->
             @impersonate
             <li class="nav-item">
                 <a class="nav-link" href="{{asset('admin/user/impersonate-detroy')}}">
@@ -145,7 +156,14 @@
             @endhasrole
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
-
+            
+            <li class="nav-item">
+                <a class="nav-link" href="{{asset('admin/setup')}}">
+                        <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+                    <span>Store</span>
+                </a>
+            </li>
+            <hr class="sidebar-divider d-none d-md-block">
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -215,64 +233,12 @@
                                 </form>
                             </div>
                         </li>
-
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="{{asset('admin/contact')}}" id="messagesDropdown" role="button"
+                                aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
-                                <!-- Counter - Messages -->
-                                <span class="badge badge-danger badge-counter">7</span>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="messagesDropdown">
-                                <h6 class="dropdown-header">
-                                    Message Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="dropdown-list-image mr-3">
-                                        <img class="rounded-circle" src="img/undraw_profile_1.svg"
-                                            alt="">
-                                        <div class="status-indicator bg-success"></div>
-                                    </div>
-                                    <div class="font-weight-bold">
-                                        <div class="text-truncate">Hi there! I am wondering if you can help me with a
-                                            problem I've been having.</div>
-                                        <div class="small text-gray-500">Emily Fowler · 58m</div>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-                            </div>
+                            </a>                 
                         </li>
 
                         <div class="topbar-divider d-none d-sm-block"></div>
@@ -281,46 +247,40 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
-
-                                    
-                                     <?php
-                                     $name=Auth::user()->ad_name;
-                                     if($name){
-                                         echo $name;
-                                     }   
-                                     ?>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">   
+                                     <?php  $name=Auth::user()->ad_name;
+                                            $admin_img = Auth::user()->ad_img;
+                                            $admin_id = Auth::user()->ad_id;
+                                     if($name){  echo "Xin chào"." ".$name; } ?>
                                 </span>
-                                <img class="img-profile rounded-circle"
+                                <?php if($admin_img): ?>
+                                   <img class="img-profile rounded-circle"
+                                     src="{{ asset('public/upload/image/' .  $admin_img) }}">
+                                <?php else: ?>
+                                 <img class="img-profile rounded-circle"
                                     src="img/undraw_profile.svg">
+                                <?php endif; ?>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ asset('admin/edit-admin/' .$admin_id)  }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
+                                    Thông tin
                                 </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ asset('admin/note-admin/' .$admin_id)  }}">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
+                                    Nhật Ký
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Đăng xuất
                                 </a>
                             </div>
                         </li>
-
                     </ul>
-
                 </nav>
-                <!-- End of Topbar -->
 
     @yield('master')      
 
@@ -462,6 +422,19 @@
             });
         })
     </script>
+        <script type="text/javascript">
+            $( function(){
+               $("#coupon_datepicker").datepicker({
+                   dateFormat:"dd/mm/yy",
+                   duration:"slow",
+       
+               });
+               $("#coupon_datepicker2").datepicker({
+                   dateFormat:"dd/mm/yy",
+                   duration:"slow",
+               });
+            });
+        </script>
     <script type="text/javascript">
         $( function(){
            $("#datepicker").datepicker({

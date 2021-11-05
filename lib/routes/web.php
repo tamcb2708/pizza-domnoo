@@ -32,6 +32,8 @@ Route::group(['namespace'=>'Frontend'],function(){
     Route::get('/dieu-khoan.html','FrontendController@dieu_khoan');
     Route::get('/chinh-sach-khuyen-mai.html','FrontendController@chinh_sach_khuyen_mai');
     Route::get('/huong-dan-su-dung.html','FrontendController@huong_dan_su_dung'); 
+    Route::get('/404.html','FrontendController@error_page'); 
+    Route::get('test_mail','FrontendController@test_mail');
 //Cart
     Route::group(['prefix'=>'cart'],function(){
         Route::get('/gio-hang.html','CartController@cart');
@@ -56,14 +58,22 @@ Route::group(['namespace'=>'Frontend'],function(){
         Route::get('/delete-free','CustomerController@delete_free');
         Route::post('/confirm-order','CustomerController@confirm_order');
         Route::get('/lich-su.html','CustomerController@lich_su');
-        Route::get('/thong-tin.html','CustomerController@thong_tin');
+        Route::get('/thong-tin.html','CustomerController@thong_tin'); 
         Route::post('/luu.html','CustomerController@luu');
         Route::get('chi-tiet-lich-su/{order_code}.html','CustomerController@chi_tiet');
         Route::get('/order/delete/{order_code}','CustomerController@delete');
         Route::get('/mat-khau.html','CustomerController@mat_khau');
+        Route::get('/send_mail.html','CustomerController@send_mail');
         Route::post('/check-mat-khau.html','CustomerController@check_mat_khau');
         Route::post('/luu-mat-khau.html','CustomerController@password');
+        Route::get('/update-new-password.html','CustomerController@update_new_password');
+        Route::post('/reset-new-password.html','CustomerController@reset_new_password');
+        Route::get('/login-facebook.html','CustomerController@login_facebook');
+        Route::get('/callback.html','CustomerController@callback_facebook');
+        Route::get('/login-google.html','CustomerController@login_google');
+        Route::get('/google-callback.html','CustomerController@callback_google');
     });
+
 });
 
 
@@ -72,6 +82,8 @@ Route::group(['namespace'=>'Backend'],function(){
         Route::get('/','LoginController@getlogin');
         Route::post('/check-login','LoginController@postlogin');
         Route::get('/logout','LoginController@logout');
+        Route::get('/edit-admin/{admin_id}','LoginController@edit_admin');
+        Route::post('/save-setting/{admin_id}','LoginController@save_setting');
     //Index
         Route::get('comment','HomeController@Comment');
         Route::get('follow','HomeController@Follow');
@@ -159,10 +171,14 @@ Route::group(['namespace'=>'Backend'],function(){
     //coupon
         Route::group(['prefix'=>'coupon'],function(){
             Route::get('/add-coupon','CouponController@add_coupon')->middleware('auth.roles');
+            Route::get('/send-coupon/{con_id}','CouponController@send_coupon');
+            Route::get('/send-coupon-vip/{con_id}','CouponController@send_coupon_vip');
             Route::get('/','CouponController@all_coupon');
             Route::get('/edit/{con_id}','CouponController@edit_coupon')->middleware('auth.roles');
             Route::get('/delete/{con_id}','CouponController@delete_coupon')->middleware('auth.roles');
             Route::post('/save-coupon','CouponController@save_coupon')->middleware('auth.roles');
+            Route::get('/active/{con_id}','CouponController@active')->middleware('auth.roles');
+            Route::get('/actived/{con_id}','CouponController@actived')->middleware('auth.roles');
             Route::post('/update-coupon/{con_id}','CouponController@update_coupon')->middleware('auth.roles');           
         });
     //Category
@@ -247,6 +263,9 @@ Route::group(['namespace'=>'Backend'],function(){
             Route::get('delete/{id}','CateController@getDeleteCate')->middleware('auth.roles');
             Route::post('/update-cate/{ca_id}','CateController@save_cate')->middleware('auth.roles');
 
+        });
+        Route::group(['prefix'=>'setup'],function(){
+            Route::get('/','SetupController@getSetup');
         });
     });
 });

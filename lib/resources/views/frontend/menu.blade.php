@@ -25,8 +25,8 @@
 						<li data-filter=".pizza" class="btn-flr is-checked tab-flr-btn-btn-flr-active">
                             <a href="{{asset('danh-muc-san-pham/'.$item->cate_id.'.html')}}">
                                 <div class="cat-block">
-                                    <div class="block-stl1 bg1">
-                                        <span class="flaticon-pizza"></span>
+									<div class="block-stl1 bg{{ $item->cate_id }}">
+                                        {!! $item->cate_icon !!}
                                         <h4>{{$item->cate_name}}</h4>
                                     </div>
                                 </div>
@@ -36,20 +36,26 @@
 					</ul>
 
 					<div class="filter-tabnav">
-						<div class="container bg_fff">
-							<form action="">
-						  <p class="showing-result">Showing 1 - 20 of 245 Products</p>
+						<div class="container">
+							<p class="showing-result">Showing 1 - 8 </p>
 							<span class="sort-by"> Short by :</span>
-							<select name="sort" id="sort" class="form-control">
-								<option value="{{Request::url()}}?sort_by=none">Lọc</option>
-								<option value="{{Request::url()}}?sort_by=tang_dan">Giá Tăng Dần</option>
-								<option value="{{Request::url()}}?sort_by=giam_dan">Giá Giảm Dần</option>
-								<option value="{{Request::url()}}?sort_by=kytu_az">Từ A Đến Z</option>
-								<option value="{{Request::url()}}?sort_by=kytu_za">Từ Z Đến a</option>
-								<option value="{{Request::url()}}?sort_by=cu_nhat">Cũ Nhất</option>
-								<option value="{{Request::url()}}?sort_by=moi_nhat">Mới Nhất</option>
-							</select>
-						</form>
+							<ul class="button-group js-radio-button-group" data-filter-group="item_cat_inner">
+								<li class="sort-domnoo">
+									<select name="sort" id="sort" class="form-control">
+										<option value="{{Request::url()}}?sort_by=none">Lọc</option>
+										<option value="{{Request::url()}}?sort_by=tang_dan">Giá Tăng Dần</option>
+										<option value="{{Request::url()}}?sort_by=giam_dan">Giá Giảm Dần</option>
+										<option value="{{Request::url()}}?sort_by=kytu_az">Từ A Đến Z</option>
+										<option value="{{Request::url()}}?sort_by=kytu_za">Từ Z Đến a</option>
+										<option value="{{Request::url()}}?sort_by=cu_nhat">Cũ Nhất</option>
+										<option value="{{Request::url()}}?sort_by=moi_nhat">Mới Nhất</option>
+									</select>
+								</li>
+							</ul>
+							<div class="list-grid-btns">
+						    	<button class="btn grid-btn"><i class="flaticon-menu"></i></button>
+						    	<button class="btn active list-btn"><i class="flaticon-grid"></i></button>
+						    </div>
 						</div>
 					</div>
 				</div>
@@ -57,13 +63,13 @@
 
 			<div class="col2">
 				<div class="grid" id="grid">
+			@foreach ($product as $item)  
 				<form action="" method="POST">
 					@csrf
-                    @foreach ($product as $item)  
                     <div class="items-for-flr pizza" data-newest="1" data-popularity="5" data-price="6.00">                   
                         <div class="block-stl2 ">
-                            <div style="height: 270px; width: 260px;" class="img-holder">
-                                <img height="270px" src="{{asset('public/Backend/SanPham/'.$item->pr_img)}}" alt="" class="img-responsive">
+                            <div class="img-holder">
+                                <img src="{{asset('public/upload/image/'.$item->pr_img)}}" alt="" class="img-responsive product-domnoo">
                             </div>
                             <div class="text-block">
                                 <h3>{{$item->pr_name}}</h3>
@@ -74,7 +80,7 @@
 								@if($item->pr_pizza==1)
 									 <a href="{{asset('thuc-don/chi-tiet-san-pham/'.$item->pr_id.'.html')}}" class="btn4">Thêm Vào Giỏ</a>
 									@else
-                                    <button style="color: aliceblue" type="button" data-id="{{$item->pr_id}}" name="add-cart" class="  add-to-cart btn1 stl2">Mua Ngay</button>
+                                    <button style="color: aliceblue" type="button" data-id="{{$item->pr_id}}" name="add-cart" class="  add-cart btn1 stl2">Mua Ngay</button>
 									<hr>
 									<a href="{{asset('thuc-don/chi-tiet-san-pham/'.$item->pr_id.'.html')}}" class="btn4">Xem Chi Tiết</a>
 								@endif
@@ -82,8 +88,8 @@
                             <span class="nonveg veg-nonveg"></span>
                         </div>
                         <div class="block-stl2_dsn2 md2">
-                            <div style="height: 270px; width: 260px;" class="img-holder">
-                                <img  src="{{asset('public/Backend/SanPham/'.$item->pr_img)}}" alt="" class="img-responsive">
+                            <div class="img-holder">
+                                <img  src="{{asset('public/upload/image/'.$item->pr_img)}}" alt="" class="img-responsive product-domnoo">
                             </div>
                             <div class="text-block">
                                 <h3>{{$item->pr_name}}</h3>
@@ -94,7 +100,7 @@
 									@if($item->pr_pizza==1)
 									 <a href="{{asset('thuc-don/chi-tiet-san-pham/'.$item->pr_id.'.html')}}" class="btn4">Thêm Vào Giỏ</a>
 									@else
-                                    <button style="color: aliceblue" type="button" data-id="{{$item->pr_id}}" name="add-cart" class="  add-cart btn1 stl2">Mua Ngay</button>
+                                    <button style="color: #c10a28" type="button" data-id="{{$item->pr_id}}" name="add-cart" class="add-cart btn4 stl2">Mua Ngay</button>
 									<hr>
 									<a href="{{asset('thuc-don/chi-tiet-san-pham/'.$item->pr_id.'.html')}}" class="btn4">Xem Chi Tiết</a>
 									@endif
@@ -112,12 +118,11 @@
 								<input type="hidden" value="0" class="cart_product_extra_{{$item->pr_id}}">
 								<input type="hidden" value="0" class="cart_product_rim_{{$item->pr_id}}">
 								<input type="hidden" value="1" class="cart_product_qty_{{$item->pr_id}}">
-                    @endforeach
+
 				</form>
+				@endforeach
                 </div>
-			</div>
-				
-				
+			</div>	
 			<div class="clearfix"></div>
 			<div class="container text-center">
 				<div class="pegination-block">
@@ -127,9 +132,6 @@
 				</div>
 			</div>
 		</section>
-		<!-- .domnoo-menu-filter -->
-
-
 		<section class="amezing-offers new-block">
 			<div class="overlay"></div>
 			<div class="fixed-bg parallax" style="background: url('images/bg1.png');"></div>
@@ -162,8 +164,8 @@
 							@foreach ($brand as $item)
 						<div class="item">
 							<div class="img-holder">
-								<img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img1">
-								<img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img2">
+								<img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img1">
+								<img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img2">
 							</div>
 						</div>
 						@endforeach

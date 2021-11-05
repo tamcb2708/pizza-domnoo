@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use App\Model\Agent;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+
+session_start();
 class AgentController extends Controller
 {
     public function add_agent()
@@ -25,16 +27,29 @@ class AgentController extends Controller
     {
     	$data=array();
     	$data['ag_name']=$request->name;
+        $data['ag_cmnd']=$request->ag_cmnd;
+        $data['ag_job']=$request->ag_job;
+        $data['ag_note']=$request->ag_note;
     	$data['ag_address']=$request->address;
     	$data['ag_old']=$request->old;
-        $data['ag_img']=$request->img;
         $data['ag_phone']=$request->phone;
     	$data['ag_status']=$request->status;
         $data['ag_facebook']=$request->facebook;
         $data['ag_instar']=$request->instar;
-        $data['ag_twitters']=$request->twitters;
+        $data['ag_twitters']=$request->twitters; 
         $data['ag_google']=$request->google;
-
+        $get_image = $request->file('img');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,999).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/upload/image',$new_image);
+            $data['ag_img'] = $new_image;
+    	    DB::table('pz-agent')->insert($data);
+    	    Session::put('message','Thêm Nhân Viên Thành công');
+    	    return Redirect::to('admin/agent/add-agent');
+        }
+        $data['ag_img']='';
     	DB::table('pz-agent')->insert($data);
     	Session::put('message','Thêm Nhân Viên Thành công');
     	return Redirect::to('admin/agent/add-agent');
@@ -62,13 +77,27 @@ class AgentController extends Controller
     {
         $data=array();
         $data['ag_name']=$request->name;
+        $data['ag_cmnd']=$request->ag_cmnd;
+        $data['ag_job']=$request->ag_job;
+        $data['ag_note']=$request->ag_note;
         $data['ag_address']=$request->address;
         $data['ag_old']=$request->old;
         $data['ag_phone']=$request->phone;
         $data['ag_facebook']=$request->facebook;
         $data['ag_twitters']=$request->twitters;
         $data['ag_google']=$request->google;
-        $data['ag_img']=$request->img;
+        $get_image = $request->file('img');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,999).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/upload/image',$new_image);
+            $data['ag_img'] = $new_image;
+            DB::table('pz-agent')->where('ag_id',$ag_id)->update($data);
+            Session::put('message','Sửa Thông Tin Nhân Viên Thành Công ');
+            return Redirect::to('admin/agent');
+        }
+        $data['ag_img']='';
         $data['ag_instar']=$request->instar;
         DB::table('pz-agent')->where('ag_id',$ag_id)->update($data);
         Session::put('message','Sửa Thông Tin Nhân Viên Thành Công ');

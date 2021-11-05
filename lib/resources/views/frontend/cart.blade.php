@@ -19,7 +19,7 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="table-responsive">
-							@if(session()->has('message'))
+						@if(session()->has('message'))
 							<div class="alert alert-success">
 							  {!!session()->get('message')!!}
 							</div>
@@ -47,13 +47,13 @@
 								@foreach (Session::get('cart') as $cart)
 								@php
 								$subtotal= $cart['product_price']*$cart['product_qty'];
-								$total+=$subtotal;
-							 @endphp
+								$total +=$subtotal;
+							    @endphp
 								<tr>
 									<td class="p_dtl">
 										<div class="block-stl9">
 											<div class="img-holder">
-												<img src="{{asset('public/Backend/SanPham/'.$cart['product_img'])}}" alt="" class="img-responsive">
+												<img src="{{asset('public/upload/image/'.$cart['product_img'])}}" alt="" class="img-responsive">
 											</div>
 											<div class="info-block">
 												<h5>{{$cart['product_name']}}</h5>
@@ -116,7 +116,7 @@
 											<input type="number" name="cart_qty[{{$cart['session_id']}}]" class="form-control text-center" value="{{$cart['product_qty']}}" min="1">
 										</div>
 									</td>
-									<td class="p_ttl">
+									<td class="p_ttl"> 
 										{{number_format($subtotal,0,',','.')}}VND
 									</td>
 								</tr>
@@ -142,16 +142,6 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-						<div class="block-stl10">
-							<h3>Find your location :</h3>
-							<p>Mauris nec semper justo, a accumsan est. Morbi massa libelementum.</p>
-							<form action="#">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Search Location..">
-								</div>
-								<button class="btn btn5">Apply</button>
-							</form>
-						</div>
 					</div>
 					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 						<div class="block-stl10">
@@ -176,7 +166,7 @@
 	
 										 Mã Giảm :{{$cou['coupon_number']}} % Giá trị giỏ hàng
 									 
-										  <p>
+										  <p> 
 												@php
 												   $total_coupon=($total*$cou['coupon_number'])/100;
 												   echo '<p>Tổng tiền được giảm:'.number_format($total_coupon,0,',','.').'VND</p>'
@@ -247,8 +237,8 @@
 					@foreach ($brand as $item)
 				<div class="item">
 					<div class="img-holder">
-						<img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img1">
-						<img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img2">
+						<img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img1">
+						<img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img2">
 					</div>
 				</div>
 				@endforeach

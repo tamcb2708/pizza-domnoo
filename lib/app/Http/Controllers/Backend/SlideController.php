@@ -25,10 +25,20 @@ class SlideController extends Controller
     {
     	$data=array();
     	$data['sl_name']=$request->name;
-    	$data['sl_img']=$request->img;
         $data['sl_title']=$request->title;
         $data['sl_status']=$request->status;
-
+        $get_image = $request->file('img');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,999).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/upload/image',$new_image);
+            $data['sl_img'] = $new_image;
+            DB::table('pz-slide')->insert($data);
+            Session::put('message','Thêm Slide Thành công');
+            return Redirect::to('admin/slide/add-slide');
+        }
+        $data['sl_img']=" ";
     	DB::table('pz-slide')->insert($data);
     	Session::put('message','Thêm Slide Thành công');
     	return Redirect::to('admin/slide/add-slide');
@@ -59,6 +69,18 @@ class SlideController extends Controller
     	$data['sl_img']=$request->img;
         $data['sl_title']=$request->title;
         $data['sl_status']=$request->status;
+        $get_image = $request->file('img');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,999).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/upload/image',$new_image);
+            $data['sl_img'] = $new_image;
+            DB::table('pz-slide')->where('sl_id',$sl_id)->update($data);
+            Session::put('message','Sửa Thông Tin Slide Thành Công ');
+            return Redirect::to('admin/slide');
+        }
+        $data['sl_img']=" ";
         DB::table('pz-slide')->where('sl_id',$sl_id)->update($data);
         Session::put('message','Sửa Thông Tin Slide Thành Công ');
         return Redirect::to('admin/slide');

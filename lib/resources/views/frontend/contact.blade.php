@@ -14,10 +14,7 @@
 				</ol>
 			</div>
 		</section><!-- banner -->
-
-
 		<div id="map1"></div>
-
 		<div class="center-wrapper cn-us new-block">
 			<div class="fixed-bg parallax" style="background: url('images/ptrn1.jpg');"></div>
 			<div class="overlay"></div>
@@ -58,17 +55,12 @@
 						<div class="col-lg-12">
 							<div class="title">
 								<h2>Liên Hệ Với Chúng Tôi</h2>
-								<p class="bottom-p">Trang web Coron Được làm trong 9 ngày liên tục của Bậc Thầy IT Nguyễn Tuấn Tâm.Trang web Coron Được làm trong 9 ngày liên tục của Bậc Thầy IT Nguyễn Tuấn Tâm.<br>Trang web Coron Được làm trong 9 ngày liên tục của Bậc Thầy IT Nguyễn Tuấn Tâm.</p>	
 							</div>
 						</div>
 						<div class="clearfix"></div>
-						<?php
-						$message=Session::get('message');
-						if($message){
+						<?php $message=Session::get('message');	if($message){
 							echo '<h2 style="color:red;" class="text-alert">'.$message.'</h2>';
-							Session::put('message',null);
-						}       
-				   ?>
+							Session::put('message',null); } ?>
 						<form action="{{asset('gui-lien-he')}}" method="POST">
 							@csrf
 							@foreach ($errors->all() as $val)
@@ -78,43 +70,31 @@
 							@endforeach
 							<div class="col-lg-12 col-md-12">
 								<div class="form-group">
-									<input type="text" name="name" value="{{old('name')}}" placeholder="Họ Và Tên" class="form-control">
+									<input required type="text" name="name" value="{{old('name')}}" placeholder="Họ Và Tên" class="form-control">
 								</div>	
 							</div>
 							<div class="col-lg-6 col-md-6">
 								<div class="form-group">
-									<input type="text" name="phone" value="{{old('phone')}}" placeholder="Số Điện Thoại" class="form-control">
+									<input required type="text" name="phone" value="{{old('phone')}}" placeholder="Số Điện Thoại" class="form-control">
 								</div>
 							</div>
 							<div class="col-lg-6 col-md-6">
 								<div class="form-group">
-									<input type="text" name="email" value="{{old('email')}}" placeholder="Email" class="form-control">
+									<input required type="text" name="email" value="{{old('email')}}" placeholder="Email" class="form-control">
 								</div>
 							</div>
 							<div class="col-lg-12 col-md-12">
 								<div class="form-group">
-									<textarea class="form-control" name="desc" value="{{old('desc')}}" placeholder="Write your messages.."></textarea>
+									<textarea required class="form-control" name="desc" value="{{old('desc')}}" placeholder="Write your messages.."></textarea>
 								</div>
 							</div>
 							<div class="col-lg-12 col-md-12 text-center">
 								<input type="submit" id="btn" class="btn btn3" value="Send message">
 							</div>
-							<script language="javascript">
-								var button = document.getElementById("btn");
-								button.onclick = function(){
-									swal("Cảm Ơn Bạn Đã Liên Hệ Với Domnoo. Domnno xin được phục vụ bạn!");
-									  window.setTimeout(function(){
-											location.reload();
-					
-										},3000);
-								}
-							</script>
 						</form>
 					</div>
 				</div>
-			</div>
-				
+			</div>		
 		</div>
-
 @endsection
 

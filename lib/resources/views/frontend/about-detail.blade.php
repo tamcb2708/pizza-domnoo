@@ -20,11 +20,15 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-8">
                         <div class="bg-single">
+                            <h2>{{ $about->hi_time }}</h2>
                             <div class="bg-single-new">
+                                    <p>{!! $about->hi_title !!}</p>
+                                    <hr>
                                 <div class="image-holder">
                                     <div class="holder-new">
-                                        <div class="overlay"></div>
-                                        <img height="350px" src="{{asset('public/Backend/LichSu/'.$about->hi_img)}}" alt="">
+                                        <div class="overlay">
+                                        </div>
+                                        <img height="350px" src="{{asset('public/upload/image/'.$about->hi_img)}}" alt="">
                                     </div>
                                     <ul>
                                         <li><a href="#"><i class="flaticon-calendar"></i>{{$about->hi_time}}</a></li>
@@ -38,7 +42,7 @@
                                     @else
                                     <div class="holder-new">
                                         <div class="overlay"></div>
-                                        <img height="350px" src="{{asset('public/Backend/LichSu/'.$about->hi_img)}}" alt="">
+                                        <img height="350px" src="{{asset('public/upload/image/'.$about->hi_img)}}" alt="">
                                     </div>
                                     @endif
                             
@@ -63,7 +67,7 @@
                                     <div class="block-stl13" style="height: 300px">
 
                                         <div class="">
-                                            <img height="150px" src="{{asset('public/Backend/LichSu/'.$item->hi_img)}}" alt="" class="">
+                                            <img height="150px" src="{{asset('public/upload/image/'.$item->hi_img)}}" alt="" class="">
                                             <p>{{$item->hi_time}}</p>
                                         </div>
                                         <hr>
@@ -92,18 +96,14 @@
                             </div>
                         </div>
 
-                        {{-- <div class="about">
-                            <h2>CATEGORIES</h2>
+                        <div class="about">
+                            <h2>Danh Mục Sản Phẩm</h2>
                             <ul>
-                                <li><i class="flaticon-right-arrow"></i><a href="#">Baking steel</a></li>
-                                <li><i class="flaticon-right-arrow"></i><a href="#">Scotts pizza journal</a></li>
-                                <li><i class="flaticon-right-arrow"></i><a href="#">Pizza Therapy</a></li>
-                                <li><i class="flaticon-right-arrow"></i><a href="#">Legends of Pizza</a></li>
-                                <li><i class="flaticon-right-arrow"></i><a href="#">I Dream of Pizza</a></li>
-                                <li><i class="flaticon-right-arrow"></i><a href="#">Pizza Tv</a></li>
-                                <li><i class="flaticon-right-arrow"></i><a href="#">Bucks Pizza</a></li>
+                                @foreach ($category1 as $item)
+                                   <li><i class="flaticon-right-arrow"></i><a  href="{{asset('danh-muc-san-pham/'.$item->cate_id.'.html')}}">{{$item->cate_name}}</a></li>
+                                @endforeach
                             </ul>
-                        </div> --}}
+                        </div>
 
                         <div class="block_r">
                             <div class="block_r1">
@@ -127,7 +127,7 @@
                             <div class="tags-line">
                                 <ul>
                                     @foreach ($category1 as $item)
-                                    <li><a href="{{asset('danh-muc-san-pham/'.$item->cate_id.'.html')}}">{{$item->cate_name}}</a></li>
+                                       <li><a href="{{asset('danh-muc-san-pham/'.$item->cate_id.'.html')}}">{{$item->cate_name}}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
@@ -144,7 +144,7 @@
 							<p class="top-h">Trong tháng này</p>
 							<h2><a style="color: black" href="{{asset('/bai-viet.html')}}">Xem ngay những bài viết mới</a></h2>
 							<div class="btm-style"><span><img src="images/btm-style.png" alt="" class="img-responsive"></span></div>
-							<p class="bottom-p">Các Thương Hiệu Hợp Tác Chuyên Ngành</p>
+							<p class="bottom-p">Các công ty hợp tác</p>
 						</div>
 					</div>
 					<div class="col-lg-12">
@@ -152,8 +152,8 @@
 							@foreach ($brand as $item)
 						<div class="item">
 							<div class="img-holder">
-								<img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img1">
-								<img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img2">
+								<img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img1">
+								<img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img2">
 							</div>
 						</div>
 						@endforeach

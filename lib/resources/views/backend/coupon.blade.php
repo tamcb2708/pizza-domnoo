@@ -1,91 +1,110 @@
 @extends('backend-view')
-@section('tit','Danh Sách Mã Giảm Giá')
+@section('tit', 'Danh Sách Mã Giảm Giá')
 @section('master')
-    
-
-                <!-- Begin Page Content -->
-                <div class="container-fluid">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h2>Danh Sách Mã Giảm Giá</h2>
-                        </div>
-                        <div class="row w3-res-tb">
-                            {{-- <div class="col-sm-5 m-b-xs">
-                                <select name="" id="" class="input-sm form-control w-sm inline v-middle">
-                                    <option value="0">Bulk action</option>
-                                    <option value="1">Delete selectd</option>
-                                    <option value="2">Bulk edit</option>
-                                    <option value="3">Export</option>
-                                </select>
-                                {{-- <button class="btn btn-sm btn-default">Apply</button> --}}
-                            </div>
-                            <div class="col-sm-4">
-                            </div>
-                            <div class="col-sm-3">
-                                {{-- <div class="input-group">
-                                    <input type="text" class="input-sm form-control" placeholder="search" name="" id="">
-                                    <span>
-                                        <button class="btn btn-sm btn-default" type="button">Go</button>
-                                    </span>
-                                </div> --}}
-                            </div>
-                        </div>
-                        <div class="table-responsive">
-                            <?php
-                                 $message=Session::get('message');
-                                 if($message){
-                                     echo '<h3 style="color:red;" class="text-alert">'.$message.'</h3>';
-                                     Session::put('message',null);
-                                 }       
-                            ?>
-                              <a href="{{asset('admin/coupon/add-coupon')}}" class="btn btn-primary">Thêm Mã Giảm Giá</a>
-                            <table class="table table-striped b-t b-light">
-                                <thead>
-                                    <tr>
-                                      
-                                            <th>Tên Mã Giảm</th>
-                                            <th>MÃ</th>
-                                            <th>Số Tiền Giảm Or Phần Trăm</th>
-                                            <th>Hình Thức</th>
-                                            <th>Số Lượng</th>
-                                            <th>Thời Gian</th>
-                                            <th style="width: 30%;" >Tùy Chọn</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($all as $da)
-                                    <tr>
-                                    <td>{{$da->con_name}} </td>
-                                    <td>{{$da->con_code}}
-                                    </td>
-                                    <td>{{$da->con_number}}</td>
-                                     <td>
-                                         @if($da->con_condition==1)
-                                          Giảm Giá Theo Phần Trăm
-                                          @elseif($da->con_condition==2)
-                                          Giảm Giá Theo Giá Tiền
-                                          @elseif($da->con_condition==0)
-                                          Chưa có Hình Thức Giảm Giá
-                                          @endif
-                                     </td>
-                                     <td>{{$da->con_time}}</td>
-                                    <td>{{date('d/m/Y H:i',strtotime($da->created_at))}}</td>
-                                    <td>
-                                        <a href="{{asset('admin/coupon/edit/'.$da->con_id)}}" class="btn btn-warning">
-                                            <span class="glyphicon glyphicon-edit"></span>
-                                            Sửa
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h2 class="add-domnoo">Danh Sách Mã Giảm Giá</h2>
+            </div>
+            <?php
+            $message = Session::get('message');
+            if ($message) {
+                echo '<h3 style="color:red;" class="text-alert">' . $message . '</h3>';
+                Session::put('message', null);
+            }
+            ?>
+        </div>
+        <div class="table-responsive">
+            <a href="{{ asset('admin/coupon/add-coupon') }}" class="btn btn-primary">Thêm Mã Giảm Giá</a>
+            <hr>
+            <table class="table table-striped b-t b-light">
+                <thead class="thead-domnoo">
+                    <tr>
+                        <th><p class="domnoo-name">Tên Mã Giảm</p></th>
+                        <th><p class="domnoo-name">MÃ</p></th>
+                        <th><p class="domnoo-name">Số Tiền Giảm Or Phần Trăm</p></th>
+                        <th><p class="domnoo-name">Hình Thức</p></th>
+                        <th><p class="domnoo-name">Số Lượng</p></th>
+                        <th><p class="domnoo-name">Ngày bắt đầu</p></th>
+                        <th><p class="domnoo-name">Ngày kết thúc</p></th>
+                        <th><p class="domnoo-name">Tình trạng</p></th>
+                        <th><p class="domnoo-name">Thời Gian Cập nhập lần cuối</p></th>
+                        <th><p class="domnoo-acction-1">Tùy Chọn</p></th>
+                        <th><p class="domnoo-acction-1">Quản lý gửi mã</p></th>
+                    </tr>
+                </thead>
+                <tbody class="tbody-domnoo">
+                    @foreach ($item as $da)
+                        <tr>
+                            <td class="domnoo-item-detail">{{ $da->con_name }} </td>
+                            <td class="domnoo-item-detail">{{ $da->con_code }}
+                            </td>
+                            <td class="domnoo-item-detail">{{ $da->con_number }}</td>
+                            <td class="domnoo-item-detail">
+                                @if ($da->con_condition == 1)
+                                    Giảm Giá Theo Phần Trăm
+                                @elseif($da->con_condition==0)
+                                    Giảm Giá Theo Giá Tiền
+                                @else
+                                    Chưa có Hình Thức Giảm Giá
+                                @endif
+                            </td>
+                            <td class="domnoo-item-detail">{{ $da->con_time }}</td> 
+                            <td class="domnoo-item-detail">{{ $da->con_date_start }}</td>
+                            <td class="domnoo-item-detail">{{ $da->con_date_end }}</td>
+                            <td class="domnoo-item-detail">
+                                @if($da->con_date_end >= $today)
+                                <span class="text-ellipsis">
+                                    <?php if($da->con_status == 1){ ?>
+                                    <a href="{{ asset('admin/coupon/active/' . $da->con_id) }} "
+                                        onclick="return confirm('Bạn đã không để hoạt động mã giảm giá')">
+                                        <span style="font-family: wingdings; font-size: 200%;">&#252;</span>
                                         </a>
-                                        <a href="{{asset('admin/coupon/delete/'.$da->con_id)}}" onclick="return confirm('Bạn chắc chắn muốn xóa  ?')" class="btn btn-danger"> <span class="glyphicon glyphicon-edit"></span>Xóa Mã</a>
-                                    </td>
-                                    </tr>
-                                  @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
 
-
+                                    <?php }else{ ?>
+                                    <a href="{{ asset('admin/coupon/actived/' . $da->con_id) }}"
+                                        onclick="return confirm('Bạn đã vô hiệu hóa mã giảm giá')">
+                                        <i class="fas fa-fw fa-cog"></i>
+                                    </a>
+                                    <?php } ?>
+                                </span>
+                                @else
+                                      Mã giảm giá đã hết hạn
+                                @endif
+                            </td>
+                            <td class="domnoo-item-detail">{{ date('d/m/Y H:i', strtotime($da->created_at)) }}</td>
+                            <td>
+                                <a href="{{ asset('admin/coupon/edit/' . $da->con_id) }}" class="btn btn-warning domnoo-action-2">
+                                    <span style="font-family: wingdings; font-size: 200%;">&#252;</span>
+                                    Sửa
+                                </a>
+                                <hr>
+                                <a href="{{ asset('admin/coupon/delete/' . $da->con_id) }}"
+                                    onclick="return confirm('Bạn chắc chắn muốn xóa  ?')"  class="btn btn-danger domnoo-action-2">
+                                    <i class="fas fa-fw fa-cog"></i>Xóa Mã</a>
+                            </td>
+                            <td>
+                                <a href="{{ asset('admin/coupon/send-coupon-vip/' . $da->con_id) }}" class="btn btn-warning domnoo-action-2">
+                                    <i class="fas fa-fw fa-cog"></i>
+                                    Gửi Mã
+                                </a>
+                                <hr>
+                                <a href="{{ asset('admin/coupon/send-coupon/' . $da->con_id) }}"
+                                    onclick="return confirm('Bạn chắc chắn muốn xóa  ?')" class="btn btn-warning domnoo-action-2"
+                                    ><i class="fas fa-fw fa-cog"></i>Gửi Mã</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class=" row pagination_style">
+                <div class="page_number">
+                    <ul>
+                        {{ $ite->links() }}
+                    </ul>
                 </div>
-                <!-- /.container-fluid -->
-
+            </div>
+        </div>
+    </div>
 @endsection

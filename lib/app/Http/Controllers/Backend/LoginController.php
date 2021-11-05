@@ -128,4 +128,37 @@ class LoginController extends Controller
         session()->forget('impersonate');
         return redirect('/admin/user');
     }
+    public function edit_admin($ad_id){
+        $data['item'] = User::find($ad_id);
+        return view('backend.edit-admin',$data);
+    }
+    public function save_setting(Request $request, $ad_id){
+        $data=array();
+        if($request->ad_password != $request->ad_check_password){
+            Session::put('error','Nhập lại mật khẩu chưa đúng mời bạn nhập lại !');
+            return Redirect::to('admin/edit-admin/'.$ad_id);
+        }
+        $data['ad_password']=md5($request->ad_password);
+        $data['ad_name']=$request->ad_name;
+        $data['ad_email']=$request->ad_email;
+        $data['ad_phone']=$request->ad_phone;
+        $data['ad_address']=$request->ad_address;
+        $data['ad_old']=$request->ad_old;
+        $get_image = $request->file('img');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,999).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/upload/image',$new_image);
+            $data['ad_img'] = $new_image;
+            DB::table('pz-user')->where('ad_id',$ad_id)->update($data);
+            Session::put('message',' Sửa Thông Tin Thành Công');
+            return Redirect::to('admin/edit-admin/'.$ad_id);
+
+        }
+        $data['ad_img']='';
+        DB::table('pz-user')->where('ad_id',$ad_id)->update($data);
+        Session::put('message',' Sửa Thông Tin Thành Công');
+        return Redirect::to('admin/edit-admin/'.$ad_id);
+    }
 }

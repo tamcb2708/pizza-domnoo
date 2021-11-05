@@ -25,6 +25,10 @@ class CategoryController extends Controller
 		}else{
 			$category= new Category;
 			$category->cate_name=$request->name;
+			$category->meta_description=$request->meta_description;
+			$category->meta_keyword=$request->meta_keywords;
+			$category->cate_key_url=$request->cate_key_url;
+			$category->cate_icon=$request->cate_icon;
 			// $category->cate_parent=$request->name;
 			$category->save();
 			return back()->with('message','Thêm Danh Mục Sản Phẩm Thành Công');
@@ -47,6 +51,10 @@ class CategoryController extends Controller
 	public function save_category($cate_id,Request $request){
 		$data=array();
         $data['cate_name']=$request->name;
+		$data['meta_keyword']=$request->meta_keywords;
+		$data['meta_description']=$request->meta_description;
+		$data['cate_key_url']=$request->cate_key_url;
+		$datap['cate_icon']=$request->cate_icon;
         DB::table('pz-category')->where('cate_id',$cate_id)->update($data);
         Session::put('message',' Sửa Danh Mục Thành Công Thành Công');
         return Redirect::to('admin/category');

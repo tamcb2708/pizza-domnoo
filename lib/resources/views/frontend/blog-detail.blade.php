@@ -20,11 +20,14 @@
                 <div class="row">
                     <div class="col-lg-8 col-md-8">
                         <div class="bg-single">
+                            <h2>{{$blog->bl_name}}</h2>
                             <div class="bg-single-new">
+                                {!! $blog->bl_title !!}
+                                <hr>
                                 <div class="image-holder">
                                     <div class="holder-new">
                                         <div class="overlay"></div>
-                                        <img height="350px" src="{{asset('public/Backend/Blog/'.$blog->bl_img1)}}" alt="">
+                                        <img height="350px" src="{{asset('public/upload/image/'.$blog->bl_img1)}}" alt="">
                                     </div>
                                     <ul>
                                         <li><a href="{{asset('bai-viet/chi-tiet-bai/'.$blog->bl_id.'.html')}}"><i class="flaticon-profile"></i>{{$blog->bl_author}}</a></li>
@@ -35,13 +38,12 @@
                                 </div>
                                 <input type="hidden" value="{{$com}}" name="comvnxx">
                                 <div class="image-heading">
-                                    <h2>{{$blog->bl_name}}</h2>
                                     <p>{!!$blog->bl_desc1!!}</p>
                                     <div class="holder-new">
                                         <div class="overlay"></div>
                                         @if($blog->bl_img2==null)
                                         @else
-                                        <img height="350px" src="{{asset('public/Backend/Blog/'.$blog->bl_img2)}}" alt="">
+                                        <img height="350px" src="{{asset('public/upload/image/'.$blog->bl_img2)}}" alt="">
                                         @endif
                                     </div>
                                     <p>{!!$blog->bl_desc2!!}</p>
@@ -50,7 +52,7 @@
                                         <div class="overlay"></div>
                                         @if($blog->bl_img3==null)
                                         @else
-                                        <img height="350px" src="{{asset('public/Backend/Blog/'.$blog->bl_img3)}}" alt="">
+                                        <img height="350px" src="{{asset('public/upload/image/'.$blog->bl_img3)}}" alt="">
                                         @endif
                                     </div>
                                     <p>{!!$blog->bl_desc4!!}</p>
@@ -123,16 +125,14 @@
                                 @foreach ($blog1 as $item)
                                 <div class="item" >
                                     <div class="block-stl13" style="height: 300px">
-
                                         <div class="">
-                                            <img height="300px" src="{{asset('public/Backend/Blog/'.$item->bl_img1)}}" alt="" class="img-responsive">
+                                            <img height="300px" src="{{asset('public/upload/image/'.$item->bl_img1)}}" alt="" class="img-responsive">
                                         </div>
                                         <p>{{$item->bl_name}}</p>
                                         <hr>
                                         <a style="color:black" href="#"><i style="color: red" class="flaticon-profile"></i>{{$item->bl_author}}</a>
                                         <h3>{{$item->created_at}}</h3>
                                         <div class="txt-container">
-                                        
                                             <a href="{{asset('bai-viet/chi-tiet-bai/'.$item->bl_id.'.html')}}" class="btn1 stl2">Đọc Ngay</a>
                                         </div>
                                    
@@ -165,15 +165,11 @@
                         </div>
 
                         <div class="about">
-                            <h2>CATEGORIES</h2>
+                            <h2>Danh Mục Tin Tức</h2>
                             <ul>
-                                <li><i class="flaticon-right-arrow"></i><a href="#">Baking steel</a></li>
-                                <li><i class="flaticon-right-arrow"></i><a href="#">Scotts pizza journal</a></li>
-                                <li><i class="flaticon-right-arrow"></i><a href="#">Pizza Therapy</a></li>
-                                <li><i class="flaticon-right-arrow"></i><a href="#">Legends of Pizza</a></li>
-                                <li><i class="flaticon-right-arrow"></i><a href="#">I Dream of Pizza</a></li>
-                                <li><i class="flaticon-right-arrow"></i><a href="#">Pizza Tv</a></li>
-                                <li><i class="flaticon-right-arrow"></i><a href="#">Bucks Pizza</a></li>
+                                @foreach ($category_blog as $category_blog)
+                                    <li><i class="flaticon-right-arrow"></i><a href="{{asset('danh-muc-bai-viet/'.$category_blog->ca_id.'.html')}}">{{ $category_blog->ca_name }}</a></li>
+                                @endforeach
                             </ul>
                         </div>
 
@@ -216,8 +212,8 @@
 							@foreach ($brand as $item)
 						<div class="item">
 							<div class="img-holder">
-								<img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img1">
-								<img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img2">
+								<img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img1">
+								<img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img2">
 							</div>
 						</div>
 						@endforeach

@@ -5,14 +5,16 @@
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <base href="{{asset('public/backend')}}/">
+    <base href="{{ asset('public/backend') }}/">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Login</title>
+    <title>Domnoo - Login</title>
 
     <!-- Custom fonts for this template-->
+    <link rel="icon" href="{{asset('public/frontend/images/fav2.ico')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('public/frontend/images/fav2.ico')}}" type="image/x-icon">
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -40,28 +42,30 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Đăng Nhập Authentic</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Đăng Nhập</h1>
                                     </div>
-                                    <?php
-                                       $message=Session::get('message');
-                                       if($message){
-                                           echo $message;
-                                           Session::put('message',null);
-                                       }
-                                    
-                                    ?>
-                                     @foreach ($errors->all() as $val)
-                                     <ul>
-                                         <li>{{$val}}</li>
-                                     </ul>
-                                         
-                                     @endforeach
-                                    <form  action="{{asset('/admin/login')}}" method="POST">
+                                    <div class="container" style="background-color: rosybrown">
+                                        <?php
+                                        $message = Session::get('message');
+                                        if ($message) {
+                                            echo $message;
+                                            Session::put('message', null);
+                                        }
+                                        
+                                        ?>
+                                        @foreach ($errors->all() as $val)
+                                            <ul>
+                                                <li>{{ $val }}</li>
+                                            </ul>
+    
+                                        @endforeach
+                                    </div>
+                                    <form action="{{ asset('/admin/login') }}" method="POST">
                                         @csrf
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user"
-                                                id="exampleInputEmail" name="email" value="{{old('email')}}" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
+                                                id="exampleInputEmail" name="email" value="{{ old('email') }}"
+                                                aria-describedby="emailHelp" placeholder="Enter Email Address...">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" class="form-control form-control-user"
@@ -69,33 +73,36 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" name="Remember" id="customCheck">
+                                                <input type="checkbox" class="custom-control-input" name="Remember"
+                                                    id="customCheck">
                                                 <label class="custom-control-label" for="customCheck">Remember
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <input type="submit" name="submit" class="btn btn-primary btn-user btn-block" value="Đăng Nhập">
+                                        <input type="submit" name="submit" class="btn btn-primary btn-user btn-block"
+                                            value="Đăng Nhập">
                                         <hr>
-                                        <a href="index.html" class="btn btn-google btn-user btn-block">
+                                        {{-- <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
                                         </a>
                                         <a href="index.html" class="btn btn-facebook btn-user btn-block">
                                             <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                                        </a>
+                                        </a> --}}
                                         {{-- <a href="{{asset('/admin/register-auth')}}" class="btn btn-facebook btn-user btn-block">
                                             <i class="fab fa-facebook-f fa-fw"></i> dang ky auth
-                                        </a>
-                                        <a href="{{asset('/admin/login-auth')}}" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> dang nhap auth
                                         </a> --}}
+                                        <a href="{{asset('/admin/login-auth')}}" class="btn btn-warning btn-user btn-block">
+                                            <i class="fa fa-cog fa-spin fa-3x fa-fw"></i>Đăng nhập tài khoản admin gốc
+                                        </a>
                                     </form>
                                     <hr>
-                                    <div class="text-center">
+                                    {{-- <div class="text-center">
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="{{asset('admin/register-auth')}}">Create an Account!</a>
-                                    </div>
+                                        <a class="small" href="{{ asset('admin/register-auth') }}">Create an
+                                            Account!</a>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>

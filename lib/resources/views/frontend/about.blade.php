@@ -66,16 +66,19 @@
 					<div class="col-lg-12">
 						<div class="history_slider owl-carousel owl-theme">
 							@foreach ($history as $item)
-							<div class="item" >
+							<div class="item item-history-domnoo" >
 								<div class="block-stl13" style="height: 300px">
 									<div class="txt-container">
-										<h3>{{$item->hi_time}}</h3>
-										<p>{!!$item->hi_title!!} 
-										</p>
-										<a href="{{asset('gioi-thieu/gioi-thieu-chi-tiet/'.$item->hi_id.'.html')}}" class="btn1 stl2">Đọc Thêm</a>
+										<div class="col-md-12">
+										   <h3 class="domnoo-h3">{{$item->hi_time}}</h3>
+										   <p class="domnoo-p">{!!$item->hi_title!!} </p>
+										</div>
+										<div class="col-md-12">
+											<a href="{{asset('gioi-thieu/gioi-thieu-chi-tiet/'.$item->hi_id.'.html')}}" class="btn1 stl2">Đọc Thêm</a>
+										</div>
 									</div>
 									<div class="img-holder">
-										<img height="300px" src="{{asset('public/Backend/LichSu/'.$item->hi_img)}}" alt="" class="img-responsive">
+										<img src="{{asset('public/upload/image/'.$item->hi_img)}}" alt="" class="img-responsive history-domnoo">
 									</div>
 								</div>
 							</div>
@@ -103,7 +106,7 @@
 					<div class="col-lg-3 col-md-3 col-sm-4 col-xs-6">
 						<div class="block-stl14">
 							<div class="img-holder">
-								<img src="{{asset('public/Backend/NhanVien/'.$item->ag_img)}}" alt="" class="img-responsive">
+								<img src="{{asset('public/upload/image/'.$item->ag_img)}}" alt="" class="img-responsive">
 								<div class="overlay">
 									<ul class="social-nav">
 										<li><a href="{{$item->ag_facebook}}"><i class="flaticon-facebook-logo"></i></a></li>
@@ -148,17 +151,15 @@
 					<div class="col-lg-12">
 						<div class="title">
 							<p class="top-h">Một chút hình ảnh vui nhộn từ phía khách hàng</p>
-							<h2>FeedBack của khách</h2>
 							<div class="btm-style"><span><img src="images/btm-style.png" alt="" class="img-responsive"></span></div>
 							<p class="bottom-p">Vui hơn khi chúng ta càng đông càng vui.
-							{{-- <br>Curabitur erat turpis posuere ac ante at</p> --}}
 						</div>
 					</div>
 					@foreach ($feedback as $item)
 					<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
 						<div class="block-stl14 stl2">
 							<div class="img-holder">
-								<img src="{{asset('public/Backend/FeedBack/'.$item->fe_img)}}" alt="" class="img-responsive">
+								<img src="{{asset('public/upload/image/'.$item->fe_img)}}" alt="" class="img-responsive">
 								<div class="overlay">
 									<ul class="social-nav">
 										<li><a href="images/big-img1.jpg" class="image-gal"><i class="flaticon-add"></i></a></li>
@@ -180,7 +181,6 @@
 							<p class="top-h">Trong tháng này</p>
 							<h2><a style="color: black" href="{{asset('/bai-viet.html')}}">Xem ngay những bài viết mới</a></h2>
 							<div class="btm-style"><span><img src="images/btm-style.png" alt="" class="img-responsive"></span></div>
-							<p class="bottom-p">Các Thương Hiệu Hợp Tác Chuyên Ngành</p>
 						</div>
 					</div>
 					<div class="col-lg-12">
@@ -188,8 +188,8 @@
 							@foreach ($brand as $item)
 						<div class="item">
 							<div class="img-holder">
-								<img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img1">
-								<img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img2">
+								<img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img1">
+								<img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img2">
 							</div>
 						</div>
 						@endforeach
@@ -198,5 +198,4 @@
 				</div>
 			</div>
 		</section>
-
 @endsection

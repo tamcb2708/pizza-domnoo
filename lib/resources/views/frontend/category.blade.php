@@ -25,8 +25,8 @@
 						<li data-filter=".pizza" class="btn-flr is-checked tab-flr-btn-btn-flr-active">
                             <a href="{{asset('danh-muc-san-pham/'.$item->cate_id.'.html')}}">
                                 <div class="cat-block">
-                                    <div class="block-stl1 bg1">
-                                        <span class="flaticon-pizza"></span>
+                                    <div class="block-stl1 bg{{ $item->cate_id }}">
+                                        {!! $item->cate_icon !!}
                                         <h4>{{$item->cate_name}}</h4>
                                     </div>
                                 </div>
@@ -39,44 +39,25 @@
 						<form action="">
 							@csrf
 						<div class="container bg_fff">
-							<p class="showing-result">Showing 1 - 20 of 245 Products</p>
+							<p class="showing-result">Showing 1 - 8 </p>
 							<span class="sort-by"> Short by :</span>
 							<ul class="button-group js-radio-button-group" data-filter-group="item_cat_inner">
-						      <li class="sort-btn" data-sort="default:asc"><span>Newest First</span></li>
-						      <li class="sort-btn" data-sort="popularity:asc"><span>Popularity</span></li>
-						      <li class="sort-btn" data-sort="price:asc"><span>Low to Heigh</span></li>
-						      <li class="sort-btn" data-sort="price:desc"><span>Heigh to Low</span></li>
-						    </ul>
-
-						    <ul class="filter-check">
-						    	<li>
-						    		<div class="form-check">
-										<label>
-											<input type="radio" name="level"> <span class="label-text">Veg</span>
-										</label>
-									</div>
+								<li class="sort-domnoo">
+									<select name="sort" id="sort" class="form-control">
+										<option value="{{Request::url()}}?sort_by=none">Lọc</option>
+										<option value="{{Request::url()}}?sort_by=tang_dan">Giá Tăng Dần</option>
+										<option value="{{Request::url()}}?sort_by=giam_dan">Giá Giảm Dần</option>
+										<option value="{{Request::url()}}?sort_by=kytu_az">Từ A Đến Z</option>
+										<option value="{{Request::url()}}?sort_by=kytu_za">Từ Z Đến a</option>
+										<option value="{{Request::url()}}?sort_by=cu_nhat">Cũ Nhất</option>
+										<option value="{{Request::url()}}?sort_by=moi_nhat">Mới Nhất</option>
+									</select>
 								</li>
-								<li>
-						    		<div class="form-check">
-										<label>
-											<input type="radio" name="level"> <span class="label-text">Non Veg</span>
-										</label>
-									</div>
-								</li>
-								<li>
-						    		<div class="form-check">
-										<label>
-											<input type="radio" name="level"> <span class="label-text">Pan</span>
-										</label>
-									</div>
-								</li>
-						    </ul>
-
+							</ul>
 						    <div class="list-grid-btns">
 						    	<button class="btn grid-btn"><i class="flaticon-menu"></i></button>
 						    	<button class="btn active list-btn"><i class="flaticon-grid"></i></button>
 						    </div>
-
 						</div>
 					    </form>
 					</div>
@@ -90,8 +71,8 @@
 					@csrf
                     <div class="items-for-flr pizza" data-newest="1" data-popularity="5" data-price="6.00">                   
                         <div class="block-stl2 ">
-                            <div style="height: 270px; width: 260px;" class="img-holder">
-                                <img height="270px" src="{{asset('public/Backend/SanPham/'.$item->pr_img)}}" alt="" class="img-responsive">
+                            <div  class="img-holder">
+                                <img src="{{asset('public/upload/image/'.$item->pr_img)}}" alt="" class="img-responsive product-domnoo">
                             </div>
                             <div class="text-block">
                                 <h3>{{$item->pr_name}}</h3>
@@ -110,8 +91,8 @@
                             <span class="nonveg veg-nonveg"></span>
                         </div>
                         <div class="block-stl2_dsn2 md2">
-                            <div style="height: 270px; width: 260px;" class="img-holder">
-                                <img  src="{{asset('public/Backend/SanPham/'.$item->pr_img)}}" alt="" class="img-responsive">
+                            <div class="img-holder">
+                                <img  src="{{asset('public/upload/image/'.$item->pr_img)}}" alt="" class="img-responsive product-domnoo">
                             </div>
                             <div class="text-block">
                                 <h3>{{$item->pr_name}}</h3>
@@ -190,8 +171,8 @@
 							@foreach ($brand as $item)
 						<div class="item">
 							<div class="img-holder">
-								<img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img1">
-								<img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img2">
+								<img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img1">
+								<img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img2">
 							</div>
 						</div>
 						@endforeach

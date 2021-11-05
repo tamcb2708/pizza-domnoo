@@ -13,7 +13,7 @@
                         <div class="image-holder">
                             <div class="holder-new">
                                 <div class="overlay"></div>
-                                <img src="{{asset('public/Backend/Blog/'.$item->bl_img1)}}" alt="" class="img-responsive">
+                                <img src="{{asset('public/upload/image/'.$item->bl_img1)}}" alt="" class="img-responsive">
                             </div>
                             <ul>
                                 <li><a href="{{asset('bai-viet/chi-tiet-bai/'.$item->bl_id.'.html')}}"><i class="flaticon-profile"></i>{{$item->bl_author}}</a></li>
@@ -41,7 +41,7 @@
                 @foreach ($history as $item)
                 <div class="about">
                     <h2>Giới Thiệu</h2>
-                    <div class="img-holder"><img src="{{asset('public/Backend/LichSu/'.$item->hi_img)}}" alt="" class="img-responsive"></div>
+                    <div class="img-holder"><img src="{{asset('public/upload/image/'.$item->hi_img)}}" alt="" class="img-responsive"></div>
                     <h3><a href="{{asset('gioi-thieu/gioi-thieu-chi-tiet/'.$item->hi_id.'.html')}}">Xem Ngay</a></h3>
                     <p>{!!$item->hi_title!!}</p>
                 </div>
@@ -107,8 +107,8 @@
                     @foreach ($brand as $item)
                 <div class="item">
                     <div class="img-holder">
-                        <img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img1">
-                        <img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img2">
+                        <img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img1">
+                        <img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img2">
                     </div>
                 </div>
                 @endforeach

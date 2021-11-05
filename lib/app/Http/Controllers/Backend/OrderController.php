@@ -16,6 +16,9 @@ use App\Model\Customer;
 use App\Model\Shipping;
 use App\Model\Coupon;
 use PDF;
+use Mail;
+
+session_start();
 class OrderController extends Controller
 {
     public function delete_order($order_code){
@@ -48,6 +51,7 @@ class OrderController extends Controller
 			$static_count=0;
 		}
 		if($order->order_status==2){
+			
 			$total_order=0;
 			$sales=0;
 			$profit=0;
@@ -55,10 +59,13 @@ class OrderController extends Controller
 			foreach ($data['order_product_id'] as $key => $or_p_id) {
 				# code...
 				$product=Product::find($or_p_id);
+
 				$product_quantity = $product->pr_sold;
 				$product_sold = $product->pr_sold;
 				$product_price=$product->pr_price;
+
 				$now=Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+
 				foreach ($data['quantity'] as $key2 => $qty) {
 					# code...
 					if($key==$key2){
@@ -70,6 +77,7 @@ class OrderController extends Controller
 						$total_order+=1;
 						$sales=$product_price*$qty;
 						$profit=$sales-$sales*10/100;
+
 					}
 				}
 			}
@@ -92,6 +100,44 @@ class OrderController extends Controller
 				$static_new->save();
 
 			}
+			  //send mail
+			  $now = Carbon::now('Asia/Ho_Chi_Minh')->format('Y-m-d H:i:s');
+			  $title_mail = "Đơn hàng của bạn đã được xác nhận và đang giao". ' '. $now;
+			  $customer = Customer::where('cus_id',$order->customer_id)->first();
+			  $data['email'][] = $customer->cus_email;
+			  $shipping = Shipping::where('ship_id',$order->shipping_id)->first();
+			  $order_detail = Order_detail::where('order_code',$order->order_code)->first();
+			  $coupon_mail = $order_detail->product_coupon;
+
+			  foreach($data['order_product_id'] as $key => $product){
+				  $product_mail = Product::find($product);
+				  foreach($data['quantity'] as $key2 =>$qty){
+					  if($key == $key2){
+						$cart_array[] = array(
+							'product_name' =>$product_mail['pr_name'],
+							'product_price' =>$product_mail['pr_price'],
+							'product_qty' =>$qty,
+						);
+					  }
+				  }
+			  }
+			  $shipping_array = array(
+				  'customer_name' =>$customer->cus_name,
+				  'shipping_name' =>$shipping->ship_name,
+				  'shipping_phone' =>$shipping->ship_phone,
+				  'shipping_address' =>$shipping->ship_address,
+				  'shipping_note' =>$shipping->ship_note,
+				  'shipping_method' =>$shipping->ship_paymment
+			  );
+			  $ordercode_mail =array(
+				  'coupon_code' =>$coupon_mail,
+				  'order_code' =>$order->order_code	
+			  );
+			  Mail::send('backend.confirm-mail-order',['cart_array'=>$cart_array,'shipping_array'=>$shipping_array,'ordercode_mail'=>$ordercode_mail], function ($message) use ($title_mail,$data) 
+			  {
+				  $message->to($data['email'])->subject($title_mail);
+				  $message->from($data['email'], $title_mail);
+			  });
 		}
 	}
     public function all_order(){ 
@@ -117,7 +163,7 @@ class OrderController extends Controller
     		# code...
     		$product_coupon = $order_id->product_coupon;
     	}
-    	if($product_coupon != 'khong co coupon'){
+    	if($product_coupon != 'No'){
     		$coupon = Coupon::where('con_code',$product_coupon)->first();
     	    $coupon_condition = $coupon->con_condition;
     	    $coupon_number = $coupon->con_number;
@@ -148,7 +194,7 @@ class OrderController extends Controller
     		# code...
     		$product_coupon = $order_id->product_coupon;
     	}
-		if($product_coupon != 'khong co coupon'){
+		if($product_coupon != 'No'){
     		$coupon = Coupon::where('con_code',$product_coupon)->first();
     	    $coupon_condition = $coupon->con_condition;
     	    $coupon_number = $coupon->con_number;

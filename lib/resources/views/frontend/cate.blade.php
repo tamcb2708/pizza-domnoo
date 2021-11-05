@@ -7,13 +7,17 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-8">
+                <h1>{{ $category_blog->ca_name }}</h1>
+                <hr>
+                {!! $category_blog->ca_description !!}
+                <hr>
                 <div class="bg-single">
                     @foreach ($blog as $item)
                     <div class="bg-single-neww">
                         <div class="image-holder">
                             <div class="holder-new">
                                 <div class="overlay"></div>
-                                <img src="{{asset('public/Backend/Blog/'.$item->bl_img1)}}" alt="" class="img-responsive">
+                                <img src="{{asset('public/upload/image/'.$item->bl_img1)}}" alt="" class="img-responsive">
                             </div>
                             <ul>
                                 <li><a href="{{asset('bai-viet/chi-tiet-bai/'.$item->bl_id.'.html')}}"><i class="flaticon-profile"></i>{{$item->bl_author}}</a></li>
@@ -107,8 +111,8 @@
                     @foreach ($brand as $item)
                 <div class="item">
                     <div class="img-holder">
-                        <img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img1">
-                        <img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img2">
+                        <img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img1">
+                        <img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img2">
                     </div>
                 </div>
                 @endforeach

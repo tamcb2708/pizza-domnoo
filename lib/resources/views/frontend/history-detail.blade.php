@@ -107,20 +107,18 @@
                              @php
                                 $i = 0;
                                 $total = 0;
-                                
                             @endphp
                         @foreach($order_details as $key =>$order)
                             @php
                                 $i++ ;
                                 $tongtien=$order->product_price * $order->product_quantity;
-                                $total +=$tongtien ;
-
+                                $total +=$tongtien;
                             @endphp
                             <tr class="color_quanity_{{$order->product_id}}">
                                 <td>{{$i}}</td>
                                 <td style="color: red">{{$order->product_id}}</td>
                                 <td>
-                                    <img width="100px;" height="100px;" src="{{asset('public/Backend/SanPham/'.$order->product->pr_img)}}" alt="">
+                                    <img width="100px;" height="100px;" src="{{asset('public/upload/image/'.$order->product->pr_img)}}" alt="">
                                     @if($order->product_size==1)
                                              Cỡ 12 inch
                                           @elseif($order->product_size==2)
@@ -160,7 +158,6 @@
                         @endforeach
                         <tr>
                             <td colspan="2">
-
                                 @php
                                     $total_coupon = 0;
                                 @endphp
@@ -205,8 +202,8 @@
                     @foreach ($brand as $item)
                 <div class="item">
                     <div class="img-holder">
-                        <img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img1">
-                        <img src="{{asset('public/Backend/Brand/'.$item->bra_image)}}" alt="" class="img-responsive img2">
+                        <img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img1">
+                        <img src="{{asset('public/upload/image/'.$item->bra_image)}}" alt="" class="img-responsive img2">
                     </div>
                 </div>
                 @endforeach

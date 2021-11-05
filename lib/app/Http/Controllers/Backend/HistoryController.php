@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 class HistoryController extends Controller
-{
+{ 
     public function add_history()
     { 
     	return view('backend.add-history');
@@ -24,15 +24,28 @@ class HistoryController extends Controller
     public function save_history(Request $request)
     {
     	$data=array();
-    	$data['hi_img']=$request->img;
     	$data['hi_time']=$request->time;
+        $data['hi_keyword']=$request->hi_keyword;
+        $data['hi_key_url']=$request->hi_key_url;
     	$data['hi_status']=$request->status;
         $data['hi_title']=$request->title;
         $data['hi_desc1']=$request->desc1;
         $data['hi_desc2']=$request->desc2;
         $data['hi_desc3']=$request->desc3;
         $data['hi_desc4']=$request->desc4;
+        $get_image = $request->file('img');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/upload/image',$new_image);
+            $data['hi_img'] = $new_image;
+            DB::table('pz-history')->insert($data);
+            Session::put('message','Thêm Bài Viết Thành Công');
+            return Redirect::to('admin/history/add-history');
 
+        }
+        $data['hi_img']=" ";
     	DB::table('pz-history')->insert($data);
     	Session::put('message','Thêm Bài Viết Thành Công');
     	return Redirect::to('admin/history/add-history');
@@ -59,7 +72,8 @@ class HistoryController extends Controller
     public function update_history($hi_id,Request $request)
     {
         $data=array();
-        $data['hi_img']=$request->img;
+        $data['hi_keyword']=$request->hi_keyword;
+        $data['hi_key_url']=$request->hi_key_url;
         $data['hi_time']=$request->time;
         $data['hi_status']=$request->status;
         $data['hi_title']=$request->title;
@@ -67,6 +81,18 @@ class HistoryController extends Controller
         $data['hi_desc2']=$request->desc2;
         $data['hi_desc3']=$request->desc3;
         $data['hi_desc4']=$request->desc4;
+        $get_image = $request->file('img');
+        if($get_image){
+            $get_name_image = $get_image->getClientOriginalName();
+            $name_image = current(explode('.',$get_name_image));
+            $new_image = $name_image.rand(0,99).'.'.$get_image->getClientOriginalExtension();
+            $get_image->move('public/upload/image',$new_image);
+            $data['hi_img'] = $new_image;
+            DB::table('pz-history')->where('hi_id',$hi_id)->update($data);
+            Session::put('message','Sửa Thông Tin Bài Viết Thành Công ');
+            return Redirect::to('admin/history');
+        }
+        $data['hi_img']=" ";
         DB::table('pz-history')->where('hi_id',$hi_id)->update($data);
         Session::put('message','Sửa Thông Tin Bài Viết Thành Công ');
         return Redirect::to('admin/history');
